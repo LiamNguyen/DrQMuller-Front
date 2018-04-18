@@ -1,0 +1,33 @@
+.signin-signup-form {
+	margin-top: 70px;
+}
+
+.signin-signup-form .tab-link {
+	width: 50%;
+}
+
+.signin-signup-form .active-hr {
+	height: .15rem;
+	width: 50%;
+	margin: 0;
+	background: #b777ae;
+	border: none;
+	transition: .3s ease-in-out;
+}
+
+.signin-signup-form .inactive-hr {
+	height: .100rem;
+	background: lightgrey;
+	margin: 0;
+	border: none;
+}
+
+.signin-form {
+	margin: 20px auto 0 auto;
+	width: 80%;
+}
+
+.signin-signup-form .custom-button {
+	width: 150px;
+	margin-top: 20px;
+}
