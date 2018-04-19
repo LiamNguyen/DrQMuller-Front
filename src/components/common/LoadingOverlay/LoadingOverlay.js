@@ -1,6 +1,8 @@
 import React from 'react';
 import Spiner from 'react-spinkit';
 
+import './style.css';
+
 const textStyle = {
   color: 'white',
   fontSize: 25,
@@ -9,11 +11,13 @@ const textStyle = {
 const LoadingOverlay = ({ text = 'Just a moment... :D', loading }) => {
   let visibleStyle = {};
 
-  if (loading)
+  if (loading) {
+    console.log(loading);
     visibleStyle = {
       opacity: 1,
       visibility: 'visible'
     };
+  }
 
   return (
     <div className="overlay" style={visibleStyle}>

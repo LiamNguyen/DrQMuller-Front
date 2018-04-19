@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
-import Sample from './SampleReducer';
+import Auth from './AuthReducer';
 
 export default combineReducers({
-  Sample
+  Auth
 });

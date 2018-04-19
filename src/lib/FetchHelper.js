@@ -8,7 +8,7 @@ function headers() {
   return new Headers({
     Accept: '*/*',
     'Content-Type': 'application/json',
-    Authorization: `Bearer ${AuthInfoManager.getToken()}`
+    Authorization: `${AuthInfoManager.getToken()}`
   });
 }
 

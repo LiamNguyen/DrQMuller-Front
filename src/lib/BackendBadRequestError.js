@@ -1,8 +1,7 @@
-import _snakeCase from 'lodash/snakeCase';
-
 class BackendBadRequestError {
   constructor(error) {
-    this.error_code = _snakeCase(error.errorCode);
+    this.error_code = error.error_code;
+    this.error_message = error.error_message;
   }
 }
 

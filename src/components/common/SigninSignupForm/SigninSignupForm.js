@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import _ from 'lodash';
 import { Tabs, TabLink, TabContent } from 'react-tabs-redux';
 
 import './style.css';
@@ -6,6 +9,7 @@ import Locale from './Locale';
 import SigninForm from './SigninForm';
 import SignupForm from './SignupForm';
 import { changeForm } from '../../../lib/ComponentHelper';
+import AuthActions from '../../../actions/AuthActions';
 
 class SigninSignupForm extends Component {
   constructor(props) {
@@ -23,7 +27,6 @@ class SigninSignupForm extends Component {
   };
 
   handleSignupTabClick = () => {
-    console.log(this.signupUsernameInput);
     this.setState({ activeHrStyle: { marginLeft: '50%' } });
   };
 
@@ -43,7 +46,11 @@ class SigninSignupForm extends Component {
     });
   };
 
-  handleSignin = () => {};
+  handleSignin = e => {
+    e.preventDefault();
+
+    this.props.signin(this.state.signinForm);
+  };
 
   handleSignupUsernameChange = e => {
     const username = e.target.value;
@@ -112,4 +119,7 @@ class SigninSignupForm extends Component {
   }
 }
 
-export default SigninSignupForm;
+export default connect(
+  state => _.pick(state, ['Auth']),
+  dispatch => bindActionCreators({ ...AuthActions }, dispatch)
+)(SigninSignupForm);

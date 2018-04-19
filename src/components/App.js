@@ -6,8 +6,9 @@ import Alert from 'react-s-alert';
 import history from '../history';
 import SigninScreen from './screens/SigninScreen';
 import CustomAlertContent from '../components/common/CustomAlertContent';
-import AuthedAppContainer from '../containers/AuthedAppContainer';
+import AuthedApp from '../components/AuthedApp';
 import RoutePathConstants from '../constants/RoutePathConstants';
+import LoadingOverlayContainer from '../containers/LoadingOverlayContainer';
 
 const { signin } = RoutePathConstants;
 
@@ -25,6 +26,7 @@ class App extends Component {
     return (
       <Router history={history}>
         <div className="app">
+          <LoadingOverlayContainer />
           <Alert
             stack={false}
             position="top"
@@ -35,7 +37,7 @@ class App extends Component {
           />
           <Switch>
             <Route exact path={`/${signin}`} component={SigninScreen} />
-            <Route component={AuthedAppContainer} />
+            <Route component={AuthedApp} />
           </Switch>
         </div>
       </Router>
