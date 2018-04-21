@@ -1,20 +1,20 @@
-import { takeEvery, put, call } from 'redux-saga/effects';
-import Alert from 'react-s-alert';
+import { takeEvery, select, put, call } from 'redux-saga/effects';
+import _ from 'lodash';
 
 import AuthConstants from '../constants/AuthConstants';
 import AuthRepository from '../repositories/AuthRepository';
 import AuthInfoManager from '../lib/AuthInfoManager';
+import { trimObjectProps } from '../lib/Helper';
+import SignupFormValidator from '../lib/validators/SignupFormValidator';
+import Alert from '../lib/Alert';
 
-const { SIGNIN } = AuthConstants;
+const { SIGNIN, SIGNUP } = AuthConstants;
 
 export function* watchSignin() {
   yield takeEvery(`${SIGNIN}_REQUEST`, function*({ payload: { options } }) {
     try {
       const response = yield call(AuthRepository.signin, options);
-      AuthInfoManager.setToken(response.loginToken, true);
-      yield put({
-        type: `${SIGNIN}_SUCCESS`
-      });
+      yield call(login, response.loginToken);
     } catch (errors) {
       yield put({
         type: `${SIGNIN}_FAILURE`,
@@ -25,6 +25,35 @@ export function* watchSignin() {
   });
 }
 
+export function* watchSignup() {
+  yield takeEvery(`${SIGNUP}_REQUEST`, function*({ payload: { options } }) {
+    try {
+      const trimmedOptions = trimObjectProps(options);
+      const validationErrors = SignupFormValidator.validate(trimmedOptions);
+
+      if (!_.isEmpty(validationErrors)) throw validationErrors;
+
+      const response = yield call(AuthRepository.signup, trimmedOptions);
+      yield call(login, response.loginToken);
+    } catch (errors) {
+      yield put({
+        type: `${SIGNUP}_FAILURE`,
+        payload: { errors }
+      });
+      const { locale } = yield select(state => state.Localization);
+      Alert.apiError(locale, errors);
+    }
+  });
+}
+
+function* login(loginToken) {
+  AuthInfoManager.setToken(loginToken, true);
+  yield put({
+    type: `${SIGNIN}_SUCCESS`
+  });
+}
+
 export default {
-  watchSignin
+  watchSignin,
+  watchSignup
 };

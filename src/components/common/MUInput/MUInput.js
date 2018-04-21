@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React from 'react';
 import { findDOMNode } from 'react-dom';
-import { FormControl, FormGroup, HelpBlock } from 'react-bootstrap';
+import { FormControl, FormGroup } from 'react-bootstrap';
 import $ from 'jquery';
 
 import './style.css';
@@ -79,7 +79,7 @@ export default class MUInput extends React.Component {
             onMouseUp={e => e.stopPropagation()}
           />
         </div>
-        {this.help() && <HelpBlock>{this.help()}</HelpBlock>}
+        {this.help() && <p className="help-block">{this.help()}</p>}
       </FormGroup>
     );
   }

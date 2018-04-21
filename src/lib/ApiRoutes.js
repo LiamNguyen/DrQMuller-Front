@@ -7,5 +7,9 @@ export default {
 
   signin() {
     return `${this.base}/signin`;
+  },
+
+  signup() {
+    return `${this.base}/user`;
   }
 };

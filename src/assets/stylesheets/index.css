@@ -16,6 +16,10 @@
 @media (max-width: 1400px) {
 	.app .signin-screen {
 		width: 40%;
+		height: auto;
+		min-height: 650px;
+		padding-bottom: 50px;
+		margin-bottom: 30px;
 	}
 
   .signin-screen .image-container {
