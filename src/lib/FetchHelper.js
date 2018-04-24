@@ -43,19 +43,13 @@ export function checkResponse(response) {
   }
 }
 
-export function get(url, options, withHeaders = false) {
+export function get(url, options) {
   const u = Url.parse(url);
   u.query = options;
-  if (withHeaders) {
-    return fetch(u.format(), {
-      method: 'GET',
-      headers: headers()
-    });
-  } else {
-    return fetch(u.format(), {
-      method: 'GET'
-    });
-  }
+  return fetch(u.format(), {
+    method: 'GET',
+    headers: headers()
+  });
 }
 
 export function post(url, json) {

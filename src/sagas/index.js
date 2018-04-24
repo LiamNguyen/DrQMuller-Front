@@ -1,9 +1,8 @@
 import { fork, all } from 'redux-saga/effects';
 
-import Auth from './auth';
-
-const { watchSignin, watchSignup } = Auth;
+import { watchSignin, watchSignup } from './auth';
+import { watchGetAppointments } from './booking';
 
 export default function* root() {
-  yield all([fork(watchSignin), fork(watchSignup)]);
+  yield all([fork(watchSignin), fork(watchSignup), fork(watchGetAppointments)]);
 }

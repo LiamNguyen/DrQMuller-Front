@@ -1,4 +1,9 @@
+export const signin = 'signin';
+export const home = 'home';
+export const createAppointment = 'create-appointment';
+
 export default {
-  signin: 'signin',
-  home: 'home'
+  signin,
+  home,
+  createAppointment
 };

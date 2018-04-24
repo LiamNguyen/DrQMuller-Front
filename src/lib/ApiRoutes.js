@@ -11,5 +11,9 @@ export default {
 
   signup() {
     return `${this.base}/user`;
+  },
+
+  getAppointments() {
+    return `${this.base}/appointments`;
   }
 };

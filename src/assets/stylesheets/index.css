@@ -52,36 +52,24 @@ body {
   margin: 0;
   padding: 0;
   height: 100%;
-}
-
-#root {
-  height: 100%;
-  overflow: auto;
-  -webkit-background-size: cover !important;
-  -moz-background-size: cover !important;
-  -o-background-size: cover !important;
-  background-size: cover !important;
+	background-color: #f9f6f8;
 }
 
 .app {
+	position: absolute;
+	top: 0;
+	right: 0;
+	left: 0;
   height: 100%;
-  background-color: white;
-	padding: 0 20px 0 20px;
-}
-
-.screen-container {
-  height: 100%;
-  width: 100%;
-}
-
-.screen-content {
-  overflow-y: auto;
+  background-color: #f9f6f8;
 }
 
 /* Overriding alert box style from react-s-alert  */
 .s-alert-wrapper .s-alert-box {
   position: absolute !important;
   z-index: 1500;
+	height: 55px !important;
+	padding: 15px;
 }
 
 /*Overriding react-tabs-redux*/

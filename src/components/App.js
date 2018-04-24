@@ -7,10 +7,8 @@ import history from '../history';
 import SigninScreen from './screens/SigninScreen';
 import CustomAlertContent from '../components/common/CustomAlertContent';
 import AuthedApp from '../components/AuthedApp';
-import RoutePathConstants from '../constants/RoutePathConstants';
+import { signin } from '../constants/RoutePathConstants';
 import LoadingOverlayContainer from '../containers/LoadingOverlayContainer';
-
-const { signin } = RoutePathConstants;
 
 class App extends Component {
   componentDidMount() {
@@ -31,7 +29,6 @@ class App extends Component {
             stack={false}
             position="top"
             effect="genie"
-            timeout={5000}
             html={true}
             contentTemplate={CustomAlertContent}
           />

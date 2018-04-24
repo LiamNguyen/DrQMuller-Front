@@ -1,40 +1,48 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
-import Alert from 'react-s-alert';
+import { string } from 'prop-types';
+import { connect } from 'react-redux';
+import { Switch, Route } from 'react-router-dom';
 
-import RoutePathConstants from '../constants/RoutePathConstants';
+import Alert from '../lib/Alert';
+import { home, createAppointment } from '../constants/RoutePathConstants';
 import AuthInfoManager from '../lib/AuthInfoManager';
-
-const { home } = RoutePathConstants;
-const Locale = {
-  text: {
-    not_authorize: 'Not authorized'
-  }
-};
+import HomeScreen from './screens/HomeScreen';
+import CreateAppointmentScreen from './screens/CreateAppointmentScreen';
 
 class AuthedApp extends Component {
   componentDidMount() {
-    const pathname = this.props.location.pathname;
+    const {
+      location: { pathname },
+      locale
+    } = this.props;
 
     if (!AuthInfoManager.isAuthorized() && pathname !== '/') {
       this.props.history.push('/');
-      Alert.error(Locale.text.not_authorize);
+      Alert.error(locale, 'not_authorized');
     }
   }
 
   render() {
     return (
-      <div className="screen-container">
-        <div className="screen-content">
-          <Route
-            exact
-            path={`/${home}`}
-            render={() => <p>This is sampleRoute</p>}
-          />
-        </div>
-      </div>
+      <Switch>
+        <Route exact path={`/${home}`} component={HomeScreen} />
+        <Route
+          exact
+          path={`/${createAppointment}`}
+          component={CreateAppointmentScreen}
+        />
+      </Switch>
     );
   }
 }
 
-export default AuthedApp;
+AuthedApp.propTypes = {
+  locale: string.isRequired
+};
+
+export default connect(
+  state => ({
+    locale: state.Localization.locale
+  }),
+  null
+)(AuthedApp);

@@ -7,6 +7,8 @@ import AuthInfoManager from '../lib/AuthInfoManager';
 import { trimObjectProps } from '../lib/Helper';
 import SignupFormValidator from '../lib/validators/SignupFormValidator';
 import Alert from '../lib/Alert';
+import history from '../history';
+import { home } from '../constants/RoutePathConstants';
 
 const { SIGNIN, SIGNUP } = AuthConstants;
 
@@ -20,7 +22,8 @@ export function* watchSignin() {
         type: `${SIGNIN}_FAILURE`,
         payload: { errors }
       });
-      Alert.error(errors.error_message);
+      const { locale } = yield select(state => state.Localization);
+      Alert.apiError(locale, errors);
     }
   });
 }
@@ -51,9 +54,5 @@ function* login(loginToken) {
   yield put({
     type: `${SIGNIN}_SUCCESS`
   });
+  history.push(`/${home}`);
 }
-
-export default {
-  watchSignin,
-  watchSignup
-};
