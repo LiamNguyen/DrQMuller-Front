@@ -1,0 +1,27 @@
+.top-bar {
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+	height: 100px;
+	background-color: white;
+	-webkit-box-shadow: 0 0 4px 0 #abaaaa;
+	-moz-box-shadow: 0 0 4px 0 #abaaaa;
+	box-shadow: 0 0 4px 0 #abaaaa;
+	text-align: center;
+}
+
+.top-bar .logo {
+	margin-top: 15px;
+}
+
+.top-bar .user-icon-container {
+	position: absolute;
+	margin-right: 20px;
+	right: 0;
+	top: 20px;
+}
+
+.top-bar .user-icon {
+	cursor: pointer;
+}

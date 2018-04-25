@@ -1,7 +1,7 @@
 import createReducer from '../lib/utils/CreateReducer';
 import AuthConstants from '../constants/AuthConstants';
 
-const { SIGNIN, SIGNUP } = AuthConstants;
+const { SIGNIN, SIGNUP, SIGNOUT } = AuthConstants;
 
 export const getInitialState = () => ({
   loading: false,
@@ -24,6 +24,15 @@ export default createReducer(getInitialState, {
   }),
   [`${SIGNUP}_SUCCESS`]: () => ({ loading: false }),
   [`${SIGNUP}_FAILURE`]: (state, { payload: { errors } }) => ({
+    loading: false,
+    errors
+  }),
+  [`${SIGNOUT}_REQUEST`]: () => ({
+    loading: true,
+    errors: {}
+  }),
+  [`${SIGNOUT}_SUCCESS`]: () => ({ loading: false }),
+  [`${SIGNOUT}_FAILURE`]: (state, { payload: { errors } }) => ({
     loading: false,
     errors
   })

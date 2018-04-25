@@ -6,6 +6,7 @@ import { Switch, Route } from 'react-router-dom';
 import Alert from '../lib/Alert';
 import { home, createAppointment } from '../constants/RoutePathConstants';
 import AuthInfoManager from '../lib/AuthInfoManager';
+import TopBar from './common/TopBar';
 import HomeScreen from './screens/HomeScreen';
 import CreateAppointmentScreen from './screens/CreateAppointmentScreen';
 
@@ -24,14 +25,17 @@ class AuthedApp extends Component {
 
   render() {
     return (
-      <Switch>
-        <Route exact path={`/${home}`} component={HomeScreen} />
-        <Route
-          exact
-          path={`/${createAppointment}`}
-          component={CreateAppointmentScreen}
-        />
-      </Switch>
+      <div className="authed-app">
+        <TopBar />
+        <Switch>
+          <Route exact path={`/${home}`} component={HomeScreen} />
+          <Route
+            exact
+            path={`/${createAppointment}`}
+            component={CreateAppointmentScreen}
+          />
+        </Switch>
+      </div>
     );
   }
 }

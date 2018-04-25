@@ -44,6 +44,18 @@
 	}
 }
 
+@media (max-width: 500px) {
+	.authed-app .top-bar {
+		text-align: left;
+		padding-left: 10px;
+	}
+
+	.authed-app .top-bar .logo {
+		width: 170px;
+		margin-top: 33px;
+	}
+}
+
 html {
   height: 100%;
 }
@@ -62,6 +74,10 @@ body {
 	left: 0;
   height: 100%;
   background-color: #f9f6f8;
+}
+
+.authed-app {
+	margin-top: 100px;
 }
 
 /* Overriding alert box style from react-s-alert  */

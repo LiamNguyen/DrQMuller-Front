@@ -8,5 +8,9 @@ export default {
 
   signup(options) {
     return post(routes.signup(), options).then(checkResponse);
+  },
+
+  signout() {
+    return post(routes.signout()).then(checkResponse);
   }
 };

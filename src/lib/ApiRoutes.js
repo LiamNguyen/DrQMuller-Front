@@ -13,6 +13,10 @@ export default {
     return `${this.base}/user`;
   },
 
+  signout() {
+    return `${this.base}/signout`;
+  },
+
   getAppointments() {
     return `${this.base}/appointments`;
   }

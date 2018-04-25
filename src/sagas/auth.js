@@ -8,9 +8,9 @@ import { trimObjectProps } from '../lib/Helper';
 import SignupFormValidator from '../lib/validators/SignupFormValidator';
 import Alert from '../lib/Alert';
 import history from '../history';
-import { home } from '../constants/RoutePathConstants';
+import { home, signin } from '../constants/RoutePathConstants';
 
-const { SIGNIN, SIGNUP } = AuthConstants;
+const { SIGNIN, SIGNUP, SIGNOUT } = AuthConstants;
 
 export function* watchSignin() {
   yield takeEvery(`${SIGNIN}_REQUEST`, function*({ payload: { options } }) {
@@ -41,6 +41,26 @@ export function* watchSignup() {
     } catch (errors) {
       yield put({
         type: `${SIGNUP}_FAILURE`,
+        payload: { errors }
+      });
+      const { locale } = yield select(state => state.Localization);
+      Alert.apiError(locale, errors);
+    }
+  });
+}
+
+export function* watchSignout() {
+  yield takeEvery(`${SIGNOUT}_REQUEST`, function*() {
+    try {
+      yield call(AuthRepository.signout);
+      yield put({
+        type: `${SIGNOUT}_SUCCESS`
+      });
+      AuthInfoManager.reset();
+      history.push(`/${signin}`);
+    } catch (errors) {
+      yield put({
+        type: `${SIGNOUT}_FAILURE`,
         payload: { errors }
       });
       const { locale } = yield select(state => state.Localization);

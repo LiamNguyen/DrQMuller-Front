@@ -1,6 +1,6 @@
 import AuthConstants from '../constants/AuthConstants';
 
-const { SIGNIN, SIGNUP } = AuthConstants;
+const { SIGNIN, SIGNUP, SIGNOUT } = AuthConstants;
 
 export const signin = options => ({
   type: `${SIGNIN}_REQUEST`,
@@ -12,7 +12,12 @@ export const signup = options => ({
   payload: { options }
 });
 
+export const signout = () => ({
+  type: `${SIGNOUT}_REQUEST`
+});
+
 export default {
   signin,
-  signup
+  signup,
+  signout
 };
