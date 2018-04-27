@@ -12,7 +12,6 @@ const LoadingOverlay = ({ text = 'Just a moment... :D', loading }) => {
   let visibleStyle = {};
 
   if (loading) {
-    console.log(loading);
     visibleStyle = {
       opacity: 1,
       visibility: 'visible'

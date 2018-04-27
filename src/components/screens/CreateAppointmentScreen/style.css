@@ -1,0 +1,35 @@
+.panel {
+	width: 80%;
+	margin: 20px auto 0 auto;
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
+	flex-wrap: wrap;
+}
+
+.date-picker-container {
+margin: 20px;
+flex: 0.3;
+text-align: center;
+}
+
+.date-picker-container .machine-select {
+	margin-top: 20px;
+}
+
+.date-picker-container .machine-image-container {
+	margin-top: 30px;
+}
+
+.date-picker-container .machine-image-container img {
+	width: 100%;
+	height: auto;
+	border: 1px solid #aeaeae;
+	border-radius: 0.3rem;
+}
+
+.time-list-container {
+	margin: 20px;
+	flex: 0.3;
+	min-width: 300px;
+}

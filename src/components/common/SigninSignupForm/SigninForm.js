@@ -1,12 +1,12 @@
 import React from 'react';
-import { func } from 'prop-types';
+import { func, object } from 'prop-types';
 
 import './style.css';
 import MUInput from '../MUInput';
-import Locale from './Locale';
 import CustomButton from '../CustomButton';
 
 const SigninForm = ({
+  locale,
   onSigninUsernameChange,
   onSigninPasswordChange,
   onSignin
@@ -15,19 +15,20 @@ const SigninForm = ({
     <MUInput
       type="text"
       autoFocus
-      placeholder={Locale.placeholders.username}
+      placeholder={locale.placeholders.username}
       onChange={onSigninUsernameChange}
     />
     <MUInput
       type="password"
-      placeholder={Locale.placeholders.password}
+      placeholder={locale.placeholders.password}
       onChange={onSigninPasswordChange}
     />
-    <CustomButton onClick={onSignin} text={Locale.signinTab.button.signin} />
+    <CustomButton onClick={onSignin} text={locale.signinTab.button.signin} />
   </form>
 );
 
 SigninForm.propTypes = {
+  locale: object.isRequired,
   onSigninUsernameChange: func.isRequired,
   onSigninPasswordChange: func.isRequired,
   onSignin: func.isRequired

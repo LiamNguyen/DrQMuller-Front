@@ -11,7 +11,11 @@
 	transition: 0.3s ease-in-out;
 }
 
-.custom-button:hover {
+.custom-button:hover:enabled {
 	background-color: #b777ae;
 	color: white;
+}
+
+button.custom-button:disabled {
+	cursor: not-allowed;
 }

@@ -1,0 +1,26 @@
+.user-icon {
+	fill: #b777ae;
+}
+
+.user-icon-container .options-panel {
+	width: 150px;
+	position: absolute;
+	right: 5px;
+	top: 65px;
+	-webkit-box-shadow: 0 0 4px 0 #abaaaa;
+	-moz-box-shadow: 0 0 4px 0 #abaaaa;
+	box-shadow: 0 0 4px 0 #abaaaa;
+	background-color: white;
+	opacity: 0;
+	visibility: hidden;
+	-webkit-transition: visibility 0.5s, opacity 0.5s ease-in-out;
+	-moz-transition: visibility 0.5s, opacity 0.5s ease-in-out;
+	-o-transition: visibility 0.5s, opacity 0.5s ease-in-out;
+	transition: visibility 0.5s, opacity 0.5s ease-in-out;
+}
+
+.user-icon-container .options-panel div {
+	height: 35px;
+	padding-top: 4px;
+	cursor: pointer;
+}

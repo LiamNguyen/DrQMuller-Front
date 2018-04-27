@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { func } from 'prop-types';
 import { bindActionCreators } from 'redux';
 import _ from 'lodash';
 import { Tabs, TabLink, TabContent } from 'react-tabs-redux';
@@ -16,9 +17,14 @@ class SigninSignupForm extends Component {
     super(props);
 
     this.state = {
+      locale: Locale[props.Localization.locale],
       activeHrStyle: {},
       signinForm: {},
-      signupForm: {}
+      signupForm: {
+        password: '',
+        confirmPassword: ''
+      },
+      errors: {}
     };
   }
 
@@ -62,35 +68,58 @@ class SigninSignupForm extends Component {
 
   handleSignupPasswordChange = e => {
     const password = e.target.value;
+    const {
+      signupForm,
+      signupForm: { confirmPassword }
+    } = this.state;
 
-    changeForm(this.state.signupForm, 'password', password, signupForm => {
+    changeForm(signupForm, 'password', password, signupForm => {
       this.setState({ signupForm });
     });
+    password === confirmPassword
+      ? this.setState({ errors: {} })
+      : this.setState({
+          errors: { confirmPassword: 'errors.confirmPassword.not_match' }
+        });
   };
 
   handleSignupConfirmPasswordChange = e => {
     const confirmPassword = e.target.value;
+    const {
+      signupForm,
+      signupForm: { password }
+    } = this.state;
 
-    changeForm(
-      this.state.signupForm,
-      'confirmPassword',
-      confirmPassword,
-      signupForm => {
-        this.setState({ signupForm });
-      }
-    );
+    changeForm(signupForm, 'confirmPassword', confirmPassword, signupForm => {
+      this.setState({ signupForm });
+    });
+
+    confirmPassword === password
+      ? this.setState({ errors: {} })
+      : this.setState({
+          errors: { confirmPassword: 'errors.confirmPassword.not_match' }
+        });
   };
 
-  handleSignup = () => {};
+  handleSignup = e => {
+    e.preventDefault();
+
+    this.props.signup(this.state.signupForm);
+  };
 
   render() {
+    const { locale, errors: localErrors } = this.state;
+    const {
+      Auth: { errors }
+    } = this.props;
+
     return (
       <Tabs className="signin-signup-form">
         <TabLink to="signin-tab" onClick={this.handleSigninTabClick}>
-          {Locale.signinTab.title}
+          {locale.signinTab.title}
         </TabLink>
         <TabLink to="signup-tab" onClick={this.handleSignupTabClick}>
-          {Locale.signupTab.title}
+          {locale.signupTab.title}
         </TabLink>
         <hr className="active-hr" style={this.state.activeHrStyle} />
         <hr className="inactive-hr" />
@@ -98,6 +127,7 @@ class SigninSignupForm extends Component {
         <div className="tab-panel">
           <TabContent for="signin-tab">
             <SigninForm
+              locale={locale}
               onSigninUsernameChange={this.handleSigninUsernameChange}
               onSigninPasswordChange={this.handleSigninPasswordChange}
               onSignin={this.handleSignin}
@@ -105,6 +135,8 @@ class SigninSignupForm extends Component {
           </TabContent>
           <TabContent for="signup-tab">
             <SignupForm
+              locale={locale}
+              errors={{ ...localErrors, ...errors }}
               onSignupUsernameChange={this.handleSignupUsernameChange}
               onSignupPasswordChange={this.handleSignupPasswordChange}
               onSignupConfirmPasswordChange={
@@ -119,7 +151,12 @@ class SigninSignupForm extends Component {
   }
 }
 
+SigninSignupForm.propTypes = {
+  signin: func,
+  signup: func
+};
+
 export default connect(
-  state => _.pick(state, ['Auth']),
+  state => _.pick(state, ['Auth', 'Localization']),
   dispatch => bindActionCreators({ ...AuthActions }, dispatch)
 )(SigninSignupForm);

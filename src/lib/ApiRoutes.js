@@ -7,5 +7,21 @@ export default {
 
   signin() {
     return `${this.base}/signin`;
+  },
+
+  signup() {
+    return `${this.base}/user`;
+  },
+
+  signout() {
+    return `${this.base}/signout`;
+  },
+
+  getAppointments() {
+    return `${this.base}/appointments`;
+  },
+
+  getAllMachines() {
+    return `${this.base}/machines`;
   }
 };
