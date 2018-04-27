@@ -8,6 +8,7 @@ import * as Colors from 'material-ui/styles/colors';
 import './assets/stylesheets/index.css';
 import 'react-s-alert/dist/s-alert-default.css';
 import 'react-s-alert/dist/s-alert-css-effects/genie.css';
+import 'react-datepicker/dist/react-datepicker.css';
 
 import App from './components/App';
 import createStore from './store';

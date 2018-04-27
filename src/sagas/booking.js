@@ -7,7 +7,7 @@ import Alert from '../lib/Alert';
 import history from '../history';
 import { createAppointment } from '../constants/RoutePathConstants';
 
-const { GET_APPOINTMENTS } = BookingConstants;
+const { GET_APPOINTMENTS, GET_ALL_MACHINES } = BookingConstants;
 
 export function* watchGetAppointments() {
   yield takeEvery(`${GET_APPOINTMENTS}_REQUEST`, function*() {
@@ -23,6 +23,25 @@ export function* watchGetAppointments() {
     } catch (errors) {
       yield put({
         type: `${GET_APPOINTMENTS}_FAILURE`,
+        payload: { errors }
+      });
+      const { locale } = yield select(state => state.Localization);
+      Alert.apiError(locale, errors);
+    }
+  });
+}
+
+export function* watchGetAllMachines() {
+  yield takeEvery(`${GET_ALL_MACHINES}_REQUEST`, function*() {
+    try {
+      const response = yield call(BookingRepository.getAllMachines);
+      yield put({
+        type: `${GET_ALL_MACHINES}_SUCCESS`,
+        payload: { machines: response }
+      });
+    } catch (errors) {
+      yield put({
+        type: `${GET_ALL_MACHINES}_FAILURE`,
         payload: { errors }
       });
       const { locale } = yield select(state => state.Localization);

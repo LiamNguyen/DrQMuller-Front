@@ -27,14 +27,16 @@ class AuthedApp extends Component {
     return (
       <div className="authed-app">
         <TopBar />
-        <Switch>
-          <Route exact path={`/${home}`} component={HomeScreen} />
-          <Route
-            exact
-            path={`/${createAppointment}`}
-            component={CreateAppointmentScreen}
-          />
-        </Switch>
+        <div className="authed-app-content">
+          <Switch>
+            <Route exact path={`/${home}`} component={HomeScreen} />
+            <Route
+              exact
+              path={`/${createAppointment}`}
+              component={CreateAppointmentScreen}
+            />
+          </Switch>
+        </div>
       </div>
     );
   }

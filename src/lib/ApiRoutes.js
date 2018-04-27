@@ -19,5 +19,9 @@ export default {
 
   getAppointments() {
     return `${this.base}/appointments`;
+  },
+
+  getAllMachines() {
+    return `${this.base}/machines`;
   }
 };

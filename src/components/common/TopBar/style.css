@@ -9,6 +9,7 @@
 	-moz-box-shadow: 0 0 4px 0 #abaaaa;
 	box-shadow: 0 0 4px 0 #abaaaa;
 	text-align: center;
+	z-index: 100;
 }
 
 .top-bar .logo {
