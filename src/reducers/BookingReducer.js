@@ -1,13 +1,20 @@
 import createReducer from '../lib/utils/CreateReducer';
 import BookingConstants from '../constants/BookingConstants';
 
-const { GET_APPOINTMENTS, GET_ALL_MACHINES } = BookingConstants;
+const {
+  GET_APPOINTMENTS,
+  GET_ALL_MACHINES,
+  GET_AVAILABLE_TIME,
+  CREATE_APPOINTMENT
+} = BookingConstants;
 
 export const getInitialState = () => ({
   loading: false,
+  loadingAvailableTime: false,
   errors: {},
   appointments: [],
-  machines: []
+  machines: [],
+  availableTime: []
 });
 
 export default createReducer(getInitialState, {
@@ -32,6 +39,32 @@ export default createReducer(getInitialState, {
     machines
   }),
   [`${GET_ALL_MACHINES}_FAILURE`]: (state, { payload: { errors } }) => ({
+    loading: false,
+    errors
+  }),
+  [`${GET_AVAILABLE_TIME}_REQUEST`]: () => ({
+    loadingAvailableTime: true,
+    errors: {}
+  }),
+  [`${GET_AVAILABLE_TIME}_SUCCESS`]: (
+    state,
+    { payload: { availableTime } }
+  ) => ({
+    loadingAvailableTime: false,
+    availableTime
+  }),
+  [`${GET_AVAILABLE_TIME}_FAILURE`]: (state, { payload: { errors } }) => ({
+    loadingAvailableTime: false,
+    errors
+  }),
+  [`${CREATE_APPOINTMENT}_REQUEST`]: () => ({
+    loading: true,
+    errors: {}
+  }),
+  [`${CREATE_APPOINTMENT}_SUCCESS`]: () => ({
+    loading: false
+  }),
+  [`${CREATE_APPOINTMENT}_FAILURE`]: (state, { payload: { errors } }) => ({
     loading: false,
     errors
   })

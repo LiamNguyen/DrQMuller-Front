@@ -1,0 +1,11 @@
+.confirm-create-appointment-modal .icon-buttons-container {
+	width: 100%;
+	display: flex;
+	justify-content: space-evenly;
+	flex-direction: row;
+	margin-bottom: 10px;
+}
+
+.confirm-create-appointment-modal .icon-buttons-container button {
+	flex: 0.3;
+}

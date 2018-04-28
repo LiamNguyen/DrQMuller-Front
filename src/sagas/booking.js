@@ -1,13 +1,19 @@
 import { takeEvery, select, put, call } from 'redux-saga/effects';
+import { delay } from 'redux-saga';
 import _ from 'lodash';
 
 import BookingConstants from '../constants/BookingConstants';
 import BookingRepository from '../repositories/BookingRepository';
 import Alert from '../lib/Alert';
 import history from '../history';
-import { createAppointment } from '../constants/RoutePathConstants';
+import { createAppointment, home } from '../constants/RoutePathConstants';
 
-const { GET_APPOINTMENTS, GET_ALL_MACHINES } = BookingConstants;
+const {
+  GET_APPOINTMENTS,
+  GET_ALL_MACHINES,
+  GET_AVAILABLE_TIME,
+  CREATE_APPOINTMENT
+} = BookingConstants;
 
 export function* watchGetAppointments() {
   yield takeEvery(`${GET_APPOINTMENTS}_REQUEST`, function*() {
@@ -45,6 +51,52 @@ export function* watchGetAllMachines() {
         payload: { errors }
       });
       const { locale } = yield select(state => state.Localization);
+      Alert.apiError(locale, errors);
+    }
+  });
+}
+
+export function* watchGetAvailableTime() {
+  yield takeEvery(`${GET_AVAILABLE_TIME}_REQUEST`, function*({
+    payload: { options }
+  }) {
+    try {
+      yield delay(1500);
+
+      const response = yield call(BookingRepository.getAvailableTime, options);
+      yield put({
+        type: `${GET_AVAILABLE_TIME}_SUCCESS`,
+        payload: { availableTime: response }
+      });
+    } catch (errors) {
+      yield put({
+        type: `${GET_AVAILABLE_TIME}_FAILURE`,
+        payload: { errors }
+      });
+      const { locale } = yield select(state => state.Localization);
+      Alert.apiError(locale, errors);
+    }
+  });
+}
+
+export function* watchCreateAppointment() {
+  yield takeEvery(`${CREATE_APPOINTMENT}_REQUEST`, function*({
+    payload: { options }
+  }) {
+    const { locale } = yield select(state => state.Localization);
+
+    try {
+      yield call(BookingRepository.createAppointment, options);
+      yield put({
+        type: `${CREATE_APPOINTMENT}_SUCCESS`
+      });
+      history.push(`/${home}`);
+      Alert.success(locale, 'appointment_created');
+    } catch (errors) {
+      yield put({
+        type: `${CREATE_APPOINTMENT}_FAILURE`,
+        payload: { errors }
+      });
       Alert.apiError(locale, errors);
     }
   });

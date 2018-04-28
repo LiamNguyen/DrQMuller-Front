@@ -1,42 +1,36 @@
 import React, { Component } from 'react';
-import { func } from 'prop-types';
+import { func, array } from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import moment from 'moment';
 import DatePicker from 'react-datepicker';
 import _ from 'lodash';
+import { Table } from 'react-bootstrap';
 
 import './style.css';
 import BookingActions from '../../../actions/BookingActions';
-import MachineImageNameConstants from '../../../constants/MachineImageNameConstants';
+import SmallLoading from '../../common/SmallLoading';
+import Locale from './Locale';
+import TimeListItem from './TimeListItem';
+import CustomButton from '../../common/CustomButton';
+import ConfirmCreateAppointmentModal from '../../common/ConfirmCreateAppointmentModal';
+import CreateAppointmentPresenter from '../../../presenters/CreateAppointmentPresenter';
 
 class CreateAppointmentScreen extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      locale: Locale[props.Localization.locale],
       selectedDate: moment(),
-      selectedMachineId: null
+      selectedMachineId: null,
+      selectedTime: null,
+      confirmModalShow: false
     };
   }
 
   componentWillMount() {
     this.props.getAllMachines();
-  }
-
-  getMachineImage(machineId) {
-    const { machines } = this.props;
-
-    return !machines || !machineId || _.isEmpty(machines)
-      ? null
-      : machines
-          .filter(machine => machine.id === machineId)
-          .map(
-            machine =>
-              MachineImageNameConstants.filter(
-                machineImage => machine.name === machineImage.name
-              )[0]
-          )[0].image;
   }
 
   handleDateChange = selectedDate => {
@@ -45,13 +39,62 @@ class CreateAppointmentScreen extends Component {
 
   handleMachineChange = e => {
     const selectedMachineId = e.target.value;
+    const { selectedDate } = this.state;
     this.setState({ selectedMachineId });
+
+    this.props.getAvailableTime({
+      date: moment(selectedDate).format('YYYY-MM-DD'),
+      machineId: selectedMachineId
+    });
+  };
+
+  handleChosenTime = selectedTime => {
+    this.setState({ selectedTime });
+  };
+
+  handleCreateAppointmentClick = () => {
+    this.setState({ confirmModalShow: true });
+  };
+
+  handleConfirmModalHide = () => {
+    this.setState({ confirmModalShow: false });
+  };
+
+  handleConfirm = () => {
+    const {
+      selectedMachineId: machineId,
+      selectedDate: date,
+      selectedTime: time
+    } = this.state;
+
+    this.handleConfirmModalHide();
+    this.props.createAppointment({
+      machineId,
+      schedule: { date: moment(date).format('YYYY-MM-DD'), time }
+    });
   };
 
   render() {
-    const { selectedDate, selectedMachineId } = this.state;
-    const { machines } = this.props;
-    const machineImage = this.getMachineImage(selectedMachineId);
+    const {
+      selectedDate,
+      selectedMachineId,
+      locale,
+      selectedTime,
+      confirmModalShow
+    } = this.state;
+    const {
+      machines,
+      availableTime,
+      Booking: { loadingAvailableTime }
+    } = this.props;
+    const machineImage = CreateAppointmentPresenter.getMachineImage(
+      selectedMachineId,
+      machines
+    );
+    const selectedMachineName = CreateAppointmentPresenter.getMachineName(
+      selectedMachineId,
+      machines
+    );
 
     return (
       <div className="panel">
@@ -82,17 +125,67 @@ class CreateAppointmentScreen extends Component {
             {machineImage && <img src={machineImage} alt="DrMuller Machines" />}
           </div>
         </div>
-        <div className="time-list-container" />
+        <div className="time-list-container">
+          <div className="time-list">
+            {loadingAvailableTime ? (
+              <SmallLoading text={locale.text.retrieving_time} />
+            ) : !availableTime || availableTime.length < 1 ? (
+              // TODO: Show different message when available time is empty or null
+              <p className="message">
+                {locale.text.available_time_not_fetched}
+              </p>
+            ) : (
+              <Table responsive>
+                <tbody>
+                  {availableTime.map(time => (
+                    <TimeListItem
+                      key={time}
+                      time={time}
+                      selectedTime={selectedTime}
+                      onTimeChosen={this.handleChosenTime}
+                    />
+                  ))}
+                </tbody>
+              </Table>
+            )}
+          </div>
+          {selectedTime && (
+            <CustomButton
+              onClick={this.handleCreateAppointmentClick}
+              text={locale.button.create_appointment}
+            />
+          )}
+        </div>
+        <ConfirmCreateAppointmentModal
+          show={confirmModalShow}
+          onHide={this.handleConfirmModalHide}
+          onConfirm={this.handleConfirm}
+          date={moment(selectedDate).format('DD.MM.YYYY')}
+          time={selectedTime}
+          machineName={selectedMachineName}
+        />
       </div>
     );
   }
 }
 
+CreateAppointmentScreen.defaultProps = {
+  machines: [],
+  availableTime: []
+};
+
 CreateAppointmentScreen.propTypes = {
-  getAllMachines: func.isRequired
+  getAllMachines: func.isRequired,
+  getAvailableTime: func.isRequired,
+  machines: array,
+  availableTime: array
 };
 
 export default connect(
-  state => ({ machines: state.Booking.machines }),
+  state => ({
+    machines: state.Booking.machines,
+    availableTime: state.Booking.availableTime,
+    ..._.pick(state, ['Localization', 'Booking'])
+  }),
   dispatch => bindActionCreators({ ...BookingActions }, dispatch)
 )(CreateAppointmentScreen);

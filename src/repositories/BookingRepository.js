@@ -1,5 +1,5 @@
 import routes from '../lib/ApiRoutes';
-import { checkResponse, get } from '../lib/FetchHelper';
+import { checkResponse, get, post } from '../lib/FetchHelper';
 
 export default {
   getAppointments() {
@@ -7,5 +7,11 @@ export default {
   },
   getAllMachines() {
     return get(routes.getAllMachines()).then(checkResponse);
+  },
+  getAvailableTime(query) {
+    return get(routes.getAvailableTime(), query).then(checkResponse);
+  },
+  createAppointment(options) {
+    return post(routes.createAppointment(), options).then(checkResponse);
   }
 };

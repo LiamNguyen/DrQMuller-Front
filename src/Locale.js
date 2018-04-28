@@ -8,6 +8,9 @@ export default {
     },
     errors: {
       not_authorized: 'Not authorized'
+    },
+    success: {
+      appointment_created: 'Your appointment has been reserved successfully'
     }
   }
 };

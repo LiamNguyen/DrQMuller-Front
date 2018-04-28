@@ -18,5 +18,9 @@ export default {
   error(locale, key, timeout = 2500) {
     Alert.closeAll();
     Alert.error(_.get(Locale[locale].errors, key), { timeout });
+  },
+  success(locale, key, timeout = 2500) {
+    Alert.closeAll();
+    Alert.success(_.get(Locale[locale].success, key), { timeout });
   }
 };

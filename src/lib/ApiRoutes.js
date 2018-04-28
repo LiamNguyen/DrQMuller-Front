@@ -23,5 +23,13 @@ export default {
 
   getAllMachines() {
     return `${this.base}/machines`;
+  },
+
+  getAvailableTime() {
+    return `${this.base}/availableTime`;
+  },
+
+  createAppointment() {
+    return `${this.base}/appointment`;
   }
 };

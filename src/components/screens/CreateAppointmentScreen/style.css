@@ -1,10 +1,13 @@
 .panel {
 	width: 80%;
-	margin: 20px auto 0 auto;
+	margin: 30px auto 20px auto;
+	padding:30px;
 	display: flex;
-	justify-content: center;
-	align-items: flex-start;
+	justify-content: space-evenly;
+	align-items: center;
 	flex-wrap: wrap;
+	box-shadow: 0 0 5px 0 grey;
+	border-radius: 10px;
 }
 
 .date-picker-container {
@@ -14,11 +17,11 @@ text-align: center;
 }
 
 .date-picker-container .machine-select {
-	margin-top: 20px;
+	margin-top: 30px;
 }
 
 .date-picker-container .machine-image-container {
-	margin-top: 30px;
+	margin-top:15px;
 }
 
 .date-picker-container .machine-image-container img {
@@ -29,7 +32,62 @@ text-align: center;
 }
 
 .time-list-container {
+	position: relative;
 	margin: 20px;
-	flex: 0.3;
 	min-width: 300px;
+	flex: 0.3;
+	height: 600px;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+.time-list-container button {
+	position: absolute;
+	margin: 0 auto 0 auto;
+	bottom: 0;
+	width: 100%;
+}
+
+.time-list {
+	min-width: 300px;
+	height: 540px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	background-color: white;
+	border: 1px solid #aeaeae;
+	border-radius: 0.3rem;
+}
+
+.time-list .small-loading {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+.time-list .table {
+	margin: 0;
+}
+
+.time-list .table tbody tr {
+	cursor: pointer;
+	text-align: center;
+	transition: background-color 0.3s ease;
+}
+
+.time-list .table tbody tr td {
+	vertical-align: middle;
+}
+
+.time-list .message {
+	color: grey;
+	padding: 0 20px 0 20px;
+	text-align: center;
+}
+
+.highlight {
+	color: white;
+	background-color: #b777ae;
 }
