@@ -6,6 +6,7 @@ import moment from 'moment';
 import DatePicker from 'react-datepicker';
 import _ from 'lodash';
 import { Table } from 'react-bootstrap';
+import ReactTransitions from 'react-transitions';
 
 import './style.css';
 import BookingActions from '../../../actions/BookingActions';
@@ -15,6 +16,7 @@ import TimeListItem from './TimeListItem';
 import CustomButton from '../../common/CustomButton';
 import ConfirmCreateAppointmentModal from '../../common/ConfirmCreateAppointmentModal';
 import CreateAppointmentPresenter from '../../../presenters/CreateAppointmentPresenter';
+import FadeWrapper from '../../common/FadeWrapper';
 
 class CreateAppointmentScreen extends Component {
   constructor(props) {
@@ -122,7 +124,15 @@ class CreateAppointmentScreen extends Component {
               ))}
           </select>
           <div className="machine-image-container">
-            {machineImage && <img src={machineImage} alt="DrMuller Machines" />}
+            {machineImage && (
+              <ReactTransitions transition="sides" width="100%" height="360px">
+                <img
+                  key={machineImage}
+                  src={machineImage}
+                  alt="DrMuller Machines"
+                />
+              </ReactTransitions>
+            )}
           </div>
         </div>
         <div className="time-list-container">
@@ -188,4 +198,4 @@ export default connect(
     ..._.pick(state, ['Localization', 'Booking'])
   }),
   dispatch => bindActionCreators({ ...BookingActions }, dispatch)
-)(CreateAppointmentScreen);
+)(FadeWrapper(CreateAppointmentScreen));

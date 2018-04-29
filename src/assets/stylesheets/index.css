@@ -13,37 +13,6 @@
   src: url('../fonts/TitilliumWeb-Light.ttf');
 }
 
-@media (max-width: 1400px) {
-	.app .signin-screen {
-		width: 40%;
-		height: auto;
-		min-height: 650px;
-		padding-bottom: 50px;
-		margin-bottom: 30px;
-	}
-
-  .signin-screen .image-container {
-	  display: none;
-  }
-}
-
-@media (max-width: 900px) {
-	.app .signin-screen {
-		width: 100%;
-		margin-top: 50px;
-	}
-
-	.signin-screen .signin-panel .logo {
-		margin-top: 20px;
-	}
-
-	.authed-app .authed-app-content .panel {
-		-webkit-box-shadow: none;
-		-moz-box-shadow: none;
-		box-shadow: none;
-	}
-}
-
 @media (max-width: 400px) {
 	.signin-screen .signin-panel .logo {
 		width: 250px;
@@ -72,6 +41,43 @@
 	}
 }
 
+@media (max-width: 853px) {
+	.machine-image-container>div {
+		height: 250px !important;
+	}
+}
+
+@media (max-width: 900px) {
+	.app .signin-screen {
+		width: 100%;
+		margin-top: 50px;
+	}
+
+	.signin-screen .signin-panel .logo {
+		margin-top: 20px;
+	}
+
+	.authed-app .authed-app-content .panel {
+		-webkit-box-shadow: none;
+		-moz-box-shadow: none;
+		box-shadow: none;
+	}
+}
+
+@media (max-width: 1400px) {
+	.app .signin-screen {
+		width: 40%;
+		height: auto;
+		min-height: 650px;
+		padding-bottom: 50px;
+		margin-bottom: 30px;
+	}
+
+  .signin-screen .image-container {
+	  display: none;
+  }
+}
+
 html {
   height: 100%;
 }
@@ -84,6 +90,15 @@ body {
 }
 
 .app {
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+	height: 100%;
+	overflow-y: auto;
+}
+
+.app .transition-group {
 	position: fixed;
 	top: 0;
 	right: 0;
@@ -136,4 +151,22 @@ body {
 	bottom: unset !important;
 	left: 50% !important;
 	margin-left: -200px;
+}
+
+.fade-enter {
+	opacity: 0.01;
+}
+
+.fade-enter.fade-enter-active {
+	opacity: 1;
+	transition: opacity 500ms ease-in;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit.fade-exit-active {
+	opacity: 0.01;
+	transition: opacity 300ms ease-in;
 }

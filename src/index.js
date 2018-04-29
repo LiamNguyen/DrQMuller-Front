@@ -6,6 +6,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import * as Colors from 'material-ui/styles/colors';
 
 import './assets/stylesheets/index.css';
+import './assets/stylesheets/animation.css';
 import 'react-s-alert/dist/s-alert-default.css';
 import 'react-s-alert/dist/s-alert-css-effects/genie.css';
 import 'react-datepicker/dist/react-datepicker.css';

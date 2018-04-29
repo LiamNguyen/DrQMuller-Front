@@ -7,6 +7,7 @@ import SigninSignupForm from '../../common/SigninSignupForm';
 import AuthInfoManager from '../../../lib/AuthInfoManager';
 import history from '../../../history';
 import { home } from '../../../constants/RoutePathConstants';
+import FadeWrapper from '../../common/FadeWrapper';
 
 class SigninScreen extends Component {
   componentWillMount() {
@@ -30,4 +31,4 @@ class SigninScreen extends Component {
   }
 }
 
-export default SigninScreen;
+export default FadeWrapper(SigninScreen);

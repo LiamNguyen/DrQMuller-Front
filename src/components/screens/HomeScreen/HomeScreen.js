@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { func, array } from 'prop-types';
 
 import BookingActions from '../../../actions/BookingActions';
+import FadeWrapper from '../../common/FadeWrapper';
 
 class HomeScreen extends Component {
   componentWillMount() {
@@ -23,4 +24,4 @@ HomeScreen.propTypes = {
 export default connect(
   state => ({ appointments: state.Booking.appointments }),
   dispatch => bindActionCreators({ ...BookingActions }, dispatch)
-)(HomeScreen);
+)(FadeWrapper(HomeScreen));

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Switch, Router, Route } from 'react-router-dom';
 import Alert from 'react-s-alert';
+import { TransitionGroup } from 'react-transition-group';
 
 import history from '../history';
 import SigninScreen from './screens/SigninScreen';
@@ -32,10 +33,12 @@ class App extends Component {
             html={true}
             contentTemplate={CustomAlertContent}
           />
-          <Switch>
-            <Route exact path={`/${signin}`} component={SigninScreen} />
-            <Route component={AuthedApp} />
-          </Switch>
+          <TransitionGroup className="transition-group">
+            <Switch>
+              <Route exact path={`/${signin}`} component={SigninScreen} />
+              <Route component={AuthedApp} />
+            </Switch>
+          </TransitionGroup>
         </div>
       </Router>
     );
