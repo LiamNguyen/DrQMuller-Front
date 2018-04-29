@@ -1,13 +1,27 @@
 import React from 'react';
-import IconButton from 'material-ui/IconButton';
-import ArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
+import { func, string, number } from 'prop-types';
+import ArrowBack from 'mdi-react/ArrowLeftIcon';
 
 import './style.css';
 
-const BackButton = ({ onClick }) => (
-  <IconButton onClick={onClick}>
-    <ArrowBack className="arrow-back-icon" />
-  </IconButton>
+const BackButton = ({ onClick, fill, size }) => (
+  <ArrowBack
+    className="back-button"
+    onClick={onClick}
+    size={size}
+    style={{ fill: fill }}
+  />
 );
+
+BackButton.defaultProps = {
+  fill: 'black',
+  size: 24
+};
+
+BackButton.propTypes = {
+  onClick: func.isRequired,
+  fill: string,
+  size: number
+};
 
 export default BackButton;

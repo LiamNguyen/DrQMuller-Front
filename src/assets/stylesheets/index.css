@@ -17,6 +17,10 @@
 	.signin-screen .signin-panel .logo {
 		width: 250px;
 	}
+
+	.authed-app .panel {
+		padding: 0;
+	}
 }
 
 @media (max-width: 500px) {
@@ -28,6 +32,24 @@
 	.authed-app .top-bar .logo {
 		width: 170px;
 		margin-top: 33px;
+	}
+
+	.home .card-view {
+		height: 195px;
+	}
+
+	.home .card-view .detail {
+		min-width: unset;
+	}
+}
+
+@media (max-width: 700px) {
+	.authed-app .home {
+		width: 80% !important;
+	}
+
+	.home .card-view .machine-image-container {
+		display: none;
 	}
 }
 
@@ -61,6 +83,12 @@
 		-webkit-box-shadow: none;
 		-moz-box-shadow: none;
 		box-shadow: none;
+	}
+}
+
+@media (max-width: 1200px) {
+	.home {
+		width: 580px !important;
 	}
 }
 

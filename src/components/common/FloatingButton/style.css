@@ -1,13 +1,7 @@
 .floating-button {
-  z-index: 1000;
-  position: fixed;
-  right: 70px;
-  bottom: 70px;
-  width: 70px;
-  height: 70px;
-  background-color: #D62718;
-  -webkit-box-shadow: 0 0 10px 1px #D62718;
-  box-shadow: 0 0 10px 1px #D62718;
+  background-color: #b777ae;
+  -webkit-box-shadow: 0 0 10px 1px #b777ae;
+  box-shadow: 0 0 10px 1px #b777ae;
   border: solid white;
   border-radius: 50px;
   text-align: center;

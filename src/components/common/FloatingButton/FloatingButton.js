@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { func, string } from 'prop-types';
-import SettingsIcon from 'mdi-react/SettingsIcon';
+import PlusIcon from 'mdi-react/PlusIcon';
+import Draggable from 'react-draggable';
 
 import './style.css';
 
@@ -33,29 +34,39 @@ class FloatingButton extends Component {
   };
 
   render() {
+    const { onClick, description } = this.props;
+
     return (
-      <div>
-        <div
-          className="floating-button"
-          onClick={this.props.onClick}
-          onMouseEnter={this.handleMouseEnter}
-          onMouseLeave={this.handleMouseLeave}
-        >
-          <SettingsIcon style={{ fill: 'white' }} />
+      <Draggable bounds="body" defaultPosition={{ x: 0, y: 0 }}>
+        <div>
+          <div
+            className="floating-button"
+            onClick={onClick}
+            onMouseEnter={this.handleMouseEnter}
+            onMouseLeave={this.handleMouseLeave}
+          >
+            <PlusIcon style={{ fill: 'white' }} />
+          </div>
+          {description && (
+            <span
+              className="floating-description"
+              style={this.state.descriptionStyle}
+            >
+              {description}
+            </span>
+          )}
         </div>
-        <span
-          className="floating-description"
-          style={this.state.descriptionStyle}
-        >
-          {this.props.description}
-        </span>
-      </div>
+      </Draggable>
     );
   }
 }
 
+FloatingButton.defaultProps = {
+  description: null
+};
+
 FloatingButton.propTypes = {
-  onClick: func,
+  onClick: func.isRequired,
   description: string
 };
 

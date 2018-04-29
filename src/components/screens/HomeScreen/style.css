@@ -1,0 +1,15 @@
+.home {
+	width: 40%;
+	margin: 20px auto 0 auto;
+	padding-bottom: 30px;
+}
+
+.home .react-draggable {
+	z-index: 1000;
+	position: fixed;
+	right: 70px;
+	bottom: 70px;
+	width: 70px;
+	height: 70px;
+
+}

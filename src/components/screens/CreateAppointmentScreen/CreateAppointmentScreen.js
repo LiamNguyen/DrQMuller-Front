@@ -17,6 +17,9 @@ import CustomButton from '../../common/CustomButton';
 import ConfirmCreateAppointmentModal from '../../common/ConfirmCreateAppointmentModal';
 import CreateAppointmentPresenter from '../../../presenters/CreateAppointmentPresenter';
 import FadeWrapper from '../../common/FadeWrapper';
+import BackButton from '../../common/BackButton';
+import history from '../../../history';
+import { home } from '../../../constants/RoutePathConstants';
 
 class CreateAppointmentScreen extends Component {
   constructor(props) {
@@ -76,6 +79,10 @@ class CreateAppointmentScreen extends Component {
     });
   };
 
+  handleGoBack = () => {
+    history.push(`/${home}`);
+  };
+
   render() {
     const {
       selectedDate,
@@ -86,8 +93,10 @@ class CreateAppointmentScreen extends Component {
     } = this.state;
     const {
       machines,
+      appointments,
       availableTime,
-      Booking: { loadingAvailableTime }
+      Booking: { loadingAvailableTime },
+      Localization: { locale: language }
     } = this.props;
     const machineImage = CreateAppointmentPresenter.getMachineImage(
       selectedMachineId,
@@ -100,6 +109,11 @@ class CreateAppointmentScreen extends Component {
 
     return (
       <div className="panel">
+        {appointments.length > 0 && (
+          <div className="back-button-container">
+            <BackButton onClick={this.handleGoBack} size={40} fill="#b777ae" />
+          </div>
+        )}
         <div className="date-picker-container">
           <DatePicker
             inline
@@ -173,6 +187,7 @@ class CreateAppointmentScreen extends Component {
           date={moment(selectedDate).format('DD.MM.YYYY')}
           time={selectedTime}
           machineName={selectedMachineName}
+          locale={language}
         />
       </div>
     );
@@ -195,6 +210,7 @@ export default connect(
   state => ({
     machines: state.Booking.machines,
     availableTime: state.Booking.availableTime,
+    appointments: state.Booking.appointments,
     ..._.pick(state, ['Localization', 'Booking'])
   }),
   dispatch => bindActionCreators({ ...BookingActions }, dispatch)

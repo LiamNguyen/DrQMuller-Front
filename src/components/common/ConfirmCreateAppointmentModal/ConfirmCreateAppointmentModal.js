@@ -6,6 +6,7 @@ import './style.css';
 import IconButton from '../IconButton';
 import ThumbsDownIcon from '../../../assets/images/thumbsDownIcon.png';
 import ThumbsUpIcon from '../../../assets/images/thumbsUpIcon.png';
+import Locale from './Locale';
 
 Modal.setAppElement('#root');
 
@@ -15,34 +16,39 @@ const ConfirmCreateAppointmentModal = ({
   onConfirm,
   date,
   time,
-  machineName
-}) => (
-  <Modal isOpen={show} onRequestClose={onHide}>
-    <div className="confirm-create-appointment-modal">
-      <p>You are about to create an appointment with details as below:</p>
-      <p>
-        Date: <b>{date}</b>
-      </p>
-      <p>
-        Time: <b>{time}</b>
-      </p>
-      <p>
-        Machine: <b>{machineName}</b>
-      </p>
-      <p style={{ textAlign: 'center' }}>
-        Please confirm if the details are correct
-      </p>
-      <div className="icon-buttons-container">
-        <IconButton
-          onClick={onConfirm}
-          iconSrc={ThumbsUpIcon}
-          animationStyle={{ backgroundColor: '#4CAF50' }}
-        />
-        <IconButton onClick={onHide} iconSrc={ThumbsDownIcon} />
+  machineName,
+  locale
+}) => {
+  const localization = Locale[locale];
+
+  return (
+    <Modal isOpen={show} onRequestClose={onHide}>
+      <div className="confirm-create-appointment-modal">
+        <p>{localization.text.title}</p>
+        <p>
+          {localization.text.date} <b>{date}</b>
+        </p>
+        <p>
+          {localization.text.time} <b>{time}</b>
+        </p>
+        <p>
+          {localization.text.machine} <b>{machineName}</b>
+        </p>
+        <p style={{ textAlign: 'center' }}>
+          {localization.text.please_confirm}
+        </p>
+        <div className="icon-buttons-container">
+          <IconButton
+            onClick={onConfirm}
+            iconSrc={ThumbsUpIcon}
+            animationStyle={{ backgroundColor: '#4CAF50' }}
+          />
+          <IconButton onClick={onHide} iconSrc={ThumbsDownIcon} />
+        </div>
       </div>
-    </div>
-  </Modal>
-);
+    </Modal>
+  );
+};
 
 ConfirmCreateAppointmentModal.defaultProps = {
   time: null
@@ -53,7 +59,8 @@ ConfirmCreateAppointmentModal.propTypes = {
   onHide: func.isRequired,
   onConfirm: func.isRequired,
   date: string.isRequired,
-  machineName: string.isRequired
+  machineName: string.isRequired,
+  locale: string.isRequired
 };
 
 export default ConfirmCreateAppointmentModal;
