@@ -12,28 +12,13 @@ const {
   GET_APPOINTMENTS,
   GET_ALL_MACHINES,
   GET_AVAILABLE_TIME,
-  CREATE_APPOINTMENT
+  CREATE_APPOINTMENT,
+  CANCEL_APPOINTMENT
 } = BookingConstants;
 
 export function* watchGetAppointments() {
   yield takeEvery(`${GET_APPOINTMENTS}_REQUEST`, function*() {
-    try {
-      const response = yield call(BookingRepository.getAppointments);
-      yield put({
-        type: `${GET_APPOINTMENTS}_SUCCESS`,
-        payload: { appointments: response }
-      });
-      if (_.isEmpty(response)) {
-        history.push(`/${createAppointment}`);
-      }
-    } catch (errors) {
-      yield put({
-        type: `${GET_APPOINTMENTS}_FAILURE`,
-        payload: { errors }
-      });
-      const { locale } = yield select(state => state.Localization);
-      Alert.apiError(locale, errors);
-    }
+    yield call(getAppointments);
   });
 }
 
@@ -100,4 +85,48 @@ export function* watchCreateAppointment() {
       Alert.apiError(locale, errors);
     }
   });
+}
+
+export function* watchCancelAppointment() {
+  yield takeEvery(`${CANCEL_APPOINTMENT}_REQUEST`, function*({
+    payload: { options }
+  }) {
+    const { locale } = yield select(state => state.Localization);
+
+    try {
+      yield call(BookingRepository.cancelAppointment, options);
+      yield put({
+        type: `${CANCEL_APPOINTMENT}_SUCCESS`
+      });
+      yield call(getAppointments);
+      yield delay(2000);
+      Alert.success(locale, 'appointment_cancelled');
+    } catch (errors) {
+      yield put({
+        type: `${CANCEL_APPOINTMENT}_FAILURE`,
+        payload: { errors }
+      });
+      Alert.apiError(locale, errors);
+    }
+  });
+}
+
+function* getAppointments() {
+  try {
+    const response = yield call(BookingRepository.getAppointments);
+    yield put({
+      type: `${GET_APPOINTMENTS}_SUCCESS`,
+      payload: { appointments: response }
+    });
+    if (_.isEmpty(response)) {
+      history.push(`/${createAppointment}`);
+    }
+  } catch (errors) {
+    yield put({
+      type: `${GET_APPOINTMENTS}_FAILURE`,
+      payload: { errors }
+    });
+    const { locale } = yield select(state => state.Localization);
+    Alert.apiError(locale, errors);
+  }
 }

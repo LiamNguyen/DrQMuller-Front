@@ -5,7 +5,8 @@ import {
   watchGetAppointments,
   watchGetAllMachines,
   watchGetAvailableTime,
-  watchCreateAppointment
+  watchCreateAppointment,
+  watchCancelAppointment
 } from './booking';
 
 export default function* root() {
@@ -16,6 +17,7 @@ export default function* root() {
     fork(watchGetAllMachines),
     fork(watchGetAppointments),
     fork(watchGetAvailableTime),
-    fork(watchCreateAppointment)
+    fork(watchCreateAppointment),
+    fork(watchCancelAppointment)
   ]);
 }

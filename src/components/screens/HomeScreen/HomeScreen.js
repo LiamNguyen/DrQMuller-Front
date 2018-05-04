@@ -20,6 +20,10 @@ class HomeScreen extends Component {
     history.push(`/${createAppointment}`);
   };
 
+  handleCancelAppointment = id => {
+    this.props.cancelAppointment({ appointmentId: id });
+  };
+
   render() {
     const { appointments, locale } = this.props;
 
@@ -30,17 +34,21 @@ class HomeScreen extends Component {
             id,
             schedule: { date, time },
             machineName,
-            isConfirmed
+            isConfirmed,
+            isCancelled
           } = appointment;
 
           return (
             <AppointmentCardView
               key={id}
+              id={id}
               date={date}
               time={time}
               machineName={machineName}
               isConfirmed={isConfirmed}
+              isCancelled={isCancelled}
               locale={locale}
+              onCancelClick={this.handleCancelAppointment}
             />
           );
         })}
@@ -52,6 +60,7 @@ class HomeScreen extends Component {
 
 HomeScreen.propTypes = {
   getAppointments: func.isRequired,
+  cancelAppointment: func.isRequired,
   appointments: array.isRequired
 };
 

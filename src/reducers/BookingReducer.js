@@ -5,7 +5,8 @@ const {
   GET_APPOINTMENTS,
   GET_ALL_MACHINES,
   GET_AVAILABLE_TIME,
-  CREATE_APPOINTMENT
+  CREATE_APPOINTMENT,
+  CANCEL_APPOINTMENT
 } = BookingConstants;
 
 export const getInitialState = () => ({
@@ -65,6 +66,17 @@ export default createReducer(getInitialState, {
     loading: false
   }),
   [`${CREATE_APPOINTMENT}_FAILURE`]: (state, { payload: { errors } }) => ({
+    loading: false,
+    errors
+  }),
+  [`${CANCEL_APPOINTMENT}_REQUEST`]: () => ({
+    loading: true,
+    errors: {}
+  }),
+  [`${CANCEL_APPOINTMENT}_SUCCESS`]: () => ({
+    loading: false
+  }),
+  [`${CANCEL_APPOINTMENT}_FAILURE`]: (state, { payload: { errors } }) => ({
     loading: false,
     errors
   })

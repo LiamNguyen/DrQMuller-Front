@@ -1,5 +1,5 @@
 import routes from '../lib/ApiRoutes';
-import { checkResponse, get, post } from '../lib/FetchHelper';
+import { checkResponse, get, post, patch } from '../lib/FetchHelper';
 
 export default {
   getAppointments() {
@@ -13,5 +13,8 @@ export default {
   },
   createAppointment(options) {
     return post(routes.createAppointment(), options).then(checkResponse);
+  },
+  cancelAppointment(options) {
+    return patch(routes.cancelAppointment(), options).then(checkResponse);
   }
 };

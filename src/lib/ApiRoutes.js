@@ -31,5 +31,9 @@ export default {
 
   createAppointment() {
     return `${this.base}/appointment`;
+  },
+
+  cancelAppointment() {
+    return `${this.base}/appointment`;
   }
 };

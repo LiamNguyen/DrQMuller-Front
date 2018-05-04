@@ -10,7 +10,8 @@ export default {
       not_authorized: 'Not authorized'
     },
     success: {
-      appointment_created: 'Your appointment has been reserved successfully'
+      appointment_created: 'Your appointment has been reserved successfully',
+      appointment_cancelled: 'Appointment has been cancelled successfully'
     }
   }
 };

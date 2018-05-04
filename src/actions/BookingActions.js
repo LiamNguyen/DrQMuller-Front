@@ -4,7 +4,8 @@ const {
   GET_APPOINTMENTS,
   GET_ALL_MACHINES,
   GET_AVAILABLE_TIME,
-  CREATE_APPOINTMENT
+  CREATE_APPOINTMENT,
+  CANCEL_APPOINTMENT
 } = BookingConstants;
 
 export const getAppointments = () => ({
@@ -25,9 +26,15 @@ export const createAppointment = options => ({
   payload: { options }
 });
 
+export const cancelAppointment = options => ({
+  type: `${CANCEL_APPOINTMENT}_REQUEST`,
+  payload: { options }
+});
+
 export default {
   getAppointments,
   getAllMachines,
   getAvailableTime,
-  createAppointment
+  createAppointment,
+  cancelAppointment
 };
