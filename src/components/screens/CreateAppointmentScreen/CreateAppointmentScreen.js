@@ -19,7 +19,7 @@ import CreateAppointmentPresenter from '../../../presenters/CreateAppointmentPre
 import FadeWrapper from '../../common/FadeWrapper';
 import BackButton from '../../common/BackButton';
 import history from '../../../history';
-import { home } from '../../../constants/RoutePathConstants';
+import { authed, home } from '../../../constants/RoutePathConstants';
 
 class CreateAppointmentScreen extends Component {
   constructor(props) {
@@ -80,7 +80,7 @@ class CreateAppointmentScreen extends Component {
   };
 
   handleGoBack = () => {
-    history.push(`/${home}`);
+    history.push(`/${authed}/${home}`);
   };
 
   render() {

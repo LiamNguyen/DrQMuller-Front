@@ -8,6 +8,7 @@ import {
   watchCreateAppointment,
   watchCancelAppointment
 } from './booking';
+import { watchGetOwnInfo } from './user';
 
 export default function* root() {
   yield all([
@@ -18,6 +19,7 @@ export default function* root() {
     fork(watchGetAppointments),
     fork(watchGetAvailableTime),
     fork(watchCreateAppointment),
-    fork(watchCancelAppointment)
+    fork(watchCancelAppointment),
+    fork(watchGetOwnInfo)
   ]);
 }

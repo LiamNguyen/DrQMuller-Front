@@ -9,7 +9,10 @@ import FadeWrapper from '../../common/FadeWrapper';
 import AppointmentCardView from '../../common/AppointmentCardView';
 import FloatingButton from '../../common/FloatingButton';
 import history from '../../../history';
-import { createAppointment } from '../../../constants/RoutePathConstants';
+import {
+  authed,
+  createAppointment
+} from '../../../constants/RoutePathConstants';
 
 class HomeScreen extends Component {
   componentWillMount() {
@@ -17,7 +20,7 @@ class HomeScreen extends Component {
   }
 
   handleCreateAppointmentClick = () => {
-    history.push(`/${createAppointment}`);
+    history.push(`/${authed}/${createAppointment}`);
   };
 
   handleCancelAppointment = id => {

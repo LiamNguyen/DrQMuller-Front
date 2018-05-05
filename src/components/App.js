@@ -8,20 +8,26 @@ import history from '../history';
 import SigninScreen from './screens/SigninScreen';
 import CustomAlertContent from '../components/common/CustomAlertContent';
 import AuthedApp from '../components/AuthedApp';
-import { signin } from '../constants/RoutePathConstants';
+import { management, signin, authed } from '../constants/RoutePathConstants';
 import LoadingOverlayContainer from '../containers/LoadingOverlayContainer';
+import ManagementAuthedApp from './ManagementAuthedApp';
 
 class App extends Component {
   componentDidMount() {
     const {
       location: { pathname }
     } = history;
+
     if (pathname === '/') {
       history.push(`/${signin}`);
     }
   }
 
   render() {
+    const {
+      location: { pathname }
+    } = history;
+
     return (
       <Router history={history}>
         <div className="app">
@@ -33,10 +39,15 @@ class App extends Component {
             html={true}
             contentTemplate={CustomAlertContent}
           />
-          <TransitionGroup className="transition-group">
+          <TransitionGroup
+            key={pathname}
+            exit={false}
+            className="transition-group"
+          >
             <Switch>
               <Route exact path={`/${signin}`} component={SigninScreen} />
-              <Route component={AuthedApp} />
+              <Route path={`/${authed}`} component={AuthedApp} />
+              <Route path={`/${management}`} component={ManagementAuthedApp} />
             </Switch>
           </TransitionGroup>
         </div>

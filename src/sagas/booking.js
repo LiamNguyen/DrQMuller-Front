@@ -6,7 +6,11 @@ import BookingConstants from '../constants/BookingConstants';
 import BookingRepository from '../repositories/BookingRepository';
 import Alert from '../lib/Alert';
 import history from '../history';
-import { createAppointment, home } from '../constants/RoutePathConstants';
+import {
+  createAppointment,
+  home,
+  authed
+} from '../constants/RoutePathConstants';
 
 const {
   GET_APPOINTMENTS,
@@ -75,7 +79,7 @@ export function* watchCreateAppointment() {
       yield put({
         type: `${CREATE_APPOINTMENT}_SUCCESS`
       });
-      history.push(`/${home}`);
+      history.push(`/${authed}/${home}`);
       Alert.success(locale, 'appointment_created');
     } catch (errors) {
       yield put({
@@ -119,7 +123,7 @@ function* getAppointments() {
       payload: { appointments: response }
     });
     if (_.isEmpty(response)) {
-      history.push(`/${createAppointment}`);
+      history.push(`/${authed}/${createAppointment}`);
     }
   } catch (errors) {
     yield put({

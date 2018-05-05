@@ -63,6 +63,11 @@
 	.machine-image-container>div {
 		height: 250px !important;
 	}
+
+	.app .signin-screen {
+		width: 90% !important;
+		min-height: 500px !important;
+	}
 }
 
 @media (max-width: 900px) {

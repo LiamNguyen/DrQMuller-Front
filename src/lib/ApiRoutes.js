@@ -35,5 +35,9 @@ export default {
 
   cancelAppointment() {
     return `${this.base}/appointment`;
+  },
+
+  getOwnInfo() {
+    return `${this.base}/user/me`;
   }
 };

@@ -6,13 +6,13 @@ import Logo from '../../common/Logo';
 import SigninSignupForm from '../../common/SigninSignupForm';
 import AuthInfoManager from '../../../lib/AuthInfoManager';
 import history from '../../../history';
-import { home } from '../../../constants/RoutePathConstants';
+import { authed, home } from '../../../constants/RoutePathConstants';
 import FadeWrapper from '../../common/FadeWrapper';
 
 class SigninScreen extends Component {
   componentWillMount() {
     if (AuthInfoManager.isAuthorized()) {
-      history.push(`/${home}`);
+      history.push(`/${authed}/${home}`);
     }
   }
 

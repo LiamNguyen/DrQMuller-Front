@@ -8,7 +8,8 @@ import { trimObjectProps } from '../lib/Helper';
 import SignupFormValidator from '../lib/validators/SignupFormValidator';
 import Alert from '../lib/Alert';
 import history from '../history';
-import { home, signin } from '../constants/RoutePathConstants';
+import { signin } from '../constants/RoutePathConstants';
+import { getOwnInfo } from './user';
 
 const { SIGNIN, SIGNUP, SIGNOUT } = AuthConstants;
 
@@ -71,8 +72,8 @@ export function* watchSignout() {
 
 function* login(loginToken) {
   AuthInfoManager.setToken(loginToken, true);
+  yield call(getOwnInfo);
   yield put({
     type: `${SIGNIN}_SUCCESS`
   });
-  history.push(`/${home}`);
 }
