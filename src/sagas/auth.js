@@ -57,8 +57,6 @@ export function* watchSignout() {
       yield put({
         type: `${SIGNOUT}_SUCCESS`
       });
-      AuthInfoManager.reset();
-      history.push(`/${signin}`);
     } catch (errors) {
       yield put({
         type: `${SIGNOUT}_FAILURE`,
@@ -67,6 +65,8 @@ export function* watchSignout() {
       const { locale } = yield select(state => state.Localization);
       Alert.apiError(locale, errors);
     }
+    AuthInfoManager.reset();
+    history.push(`/${signin}`);
   });
 }
 
