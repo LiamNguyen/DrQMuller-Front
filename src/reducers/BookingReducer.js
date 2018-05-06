@@ -62,9 +62,6 @@ export default createReducer(getInitialState, {
     loading: true,
     errors: {}
   }),
-  [`${CREATE_APPOINTMENT}_SUCCESS`]: () => ({
-    loading: false
-  }),
   [`${CREATE_APPOINTMENT}_FAILURE`]: (state, { payload: { errors } }) => ({
     loading: false,
     errors

@@ -1,6 +1,7 @@
 import { takeEvery, select, put, call } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
 import _ from 'lodash';
+import SocketIOClient from 'socket.io-client';
 
 import BookingConstants from '../constants/BookingConstants';
 import BookingRepository from '../repositories/BookingRepository';
@@ -11,6 +12,8 @@ import {
   home,
   authed
 } from '../constants/RoutePathConstants';
+import { appointmentCreated } from '../constants/SocketIOListenerConstants';
+import config from '../config';
 
 const {
   GET_APPOINTMENTS,
@@ -75,12 +78,13 @@ export function* watchCreateAppointment() {
     const { locale } = yield select(state => state.Localization);
 
     try {
-      yield call(BookingRepository.createAppointment, options);
-      yield put({
-        type: `${CREATE_APPOINTMENT}_SUCCESS`
-      });
+      const response = yield call(BookingRepository.createAppointment, options);
       history.push(`/${authed}/${home}`);
       Alert.success(locale, 'appointment_created');
+      SocketIOClient(config.apiHost).emit(
+        appointmentCreated,
+        response.appointmentId
+      );
     } catch (errors) {
       yield put({
         type: `${CREATE_APPOINTMENT}_FAILURE`,

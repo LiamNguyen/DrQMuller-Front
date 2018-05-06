@@ -9,6 +9,8 @@ import './style.css';
 import ManagementActions from '../../../actions/ManagementActions';
 import Locale from './Locale';
 import AppointmentItem from './AppointmentItem';
+import socketIO from '../../../socketIO';
+import { refreshAppointments } from '../../../constants/SocketIOListenerConstants';
 
 class AppointmentManagementScreen extends Component {
   constructor(props) {
@@ -17,10 +19,19 @@ class AppointmentManagementScreen extends Component {
     this.state = {
       locale: Locale[props.Localization.locale]
     };
+
+    this.socket = socketIO.socket;
   }
 
   componentWillMount() {
     this.props.getManagementAppointments();
+    this.socket.on(refreshAppointments, () => {
+      this.props.getManagementAppointments();
+    });
+  }
+
+  componentWillUnmount() {
+    this.socket.disconnect();
   }
 
   handleConfirmClick = appointmentId => {
