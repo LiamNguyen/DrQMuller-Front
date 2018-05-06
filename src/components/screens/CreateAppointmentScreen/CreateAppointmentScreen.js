@@ -39,7 +39,15 @@ class CreateAppointmentScreen extends Component {
   }
 
   handleDateChange = selectedDate => {
+    const { selectedMachineId } = this.state;
     this.setState({ selectedDate });
+
+    if (!selectedMachineId) return;
+
+    this.props.getAvailableTime({
+      date: moment(selectedDate).format('YYYY-MM-DD'),
+      machineId: selectedMachineId
+    });
   };
 
   handleMachineChange = e => {

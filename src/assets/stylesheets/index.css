@@ -169,6 +169,20 @@ body {
 	margin-top: 20px;
 }
 
+.column {
+	box-shadow: grey 0px 0px 6px 0px;
+	border-radius: 5px;
+}
+
+.custom-center {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.no-data {
+	text-align: center;
+}
+
 /*Overriding react-modal*/
 .ReactModal__Overlay {
 	background-color: rgba(0, 0, 0, 0.7) !important;

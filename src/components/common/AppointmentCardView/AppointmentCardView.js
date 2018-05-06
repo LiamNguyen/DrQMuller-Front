@@ -1,5 +1,6 @@
 import React from 'react';
 import { string, bool, func } from 'prop-types';
+import moment from 'moment';
 
 import './style.css';
 import MachineImageNameConstants from '../../../constants/MachineImageNameConstants';
@@ -34,7 +35,8 @@ const AppointmentCardView = ({
       {!isAppointmentValid && <div className="card-view-overlay" />}
       <div className="detail">
         <p>
-          {localization.text.date} <b>{date}</b>
+          {localization.text.date}{' '}
+          <b>{moment(date).format('dddd[,] MMM Do YY')}</b>
         </p>
         <p>
           {localization.text.time} <b>{time}</b>

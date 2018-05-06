@@ -11,7 +11,8 @@ export default {
     },
     success: {
       appointment_created: 'Your appointment has been reserved successfully',
-      appointment_cancelled: 'Appointment has been cancelled successfully'
+      appointment_cancelled: 'Appointment has been cancelled successfully',
+      appointment_confirmed: 'Appointment has been confirmed successfully'
     }
   }
 };

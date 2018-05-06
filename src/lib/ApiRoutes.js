@@ -39,5 +39,13 @@ export default {
 
   getOwnInfo() {
     return `${this.base}/user/me`;
+  },
+
+  getManagementAppointments() {
+    return `${this.base}/management/appointments`;
+  },
+
+  confirmAppointment() {
+    return `${this.base}/management/appointment/confirm`;
   }
 };
