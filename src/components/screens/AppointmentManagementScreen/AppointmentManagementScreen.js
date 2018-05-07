@@ -26,7 +26,7 @@ class AppointmentManagementScreen extends Component {
   componentWillMount() {
     this.props.getManagementAppointments();
     this.socket.on(refreshAppointments, () => {
-      this.props.getManagementAppointments();
+      this.props.getManagementAppointments(false);
     });
   }
 

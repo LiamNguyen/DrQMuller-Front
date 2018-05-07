@@ -13,8 +13,11 @@ export const getInitialState = () => ({
 });
 
 export default createReducer(getInitialState, {
-  [`${GET_MANAGEMENT_APPOINTMENTS}_REQUEST`]: () => ({
-    loading: true,
+  [`${GET_MANAGEMENT_APPOINTMENTS}_REQUEST`]: (
+    state,
+    { payload: { shouldReload } }
+  ) => ({
+    loading: shouldReload,
     errors: {}
   }),
   [`${GET_MANAGEMENT_APPOINTMENTS}_SUCCESS`]: (

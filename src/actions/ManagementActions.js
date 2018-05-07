@@ -5,8 +5,9 @@ const {
   CONFIRM_APPOINTMENT
 } = ManagementConstants;
 
-export const getManagementAppointments = () => ({
-  type: `${GET_MANAGEMENT_APPOINTMENTS}_REQUEST`
+export const getManagementAppointments = (shouldReload = true) => ({
+  type: `${GET_MANAGEMENT_APPOINTMENTS}_REQUEST`,
+  payload: { shouldReload }
 });
 
 export const confirmAppointment = appointmentId => ({
