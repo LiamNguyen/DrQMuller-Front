@@ -41,17 +41,17 @@
     "redux-saga": "^0.16.0",
     "socket.io-client": "^2.1.0",
     "tokeys": "^1.1.0",
-    "url": "^0.11.0"
+    "url": "^0.11.0",
+    "jquery": "^3.0.0",
+    "bootstrap": "^3.3.4"
   },
   "devDependencies": {
-    "bootstrap": "^3.3.4",
     "gulp": "^3.9.1",
     "gulp-bump": "^2.8.0",
     "gulp-rename": "^1.2.2",
     "gulp-replace": "^0.6.1",
     "gulp-util": "^3.0.8",
     "husky": "^0.13.4",
-    "jquery": "^3.0.0",
     "lint-staged": "^3.6.1",
     "prettier": "^1.12"
   },

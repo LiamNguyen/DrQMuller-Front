@@ -5,8 +5,8 @@ let appHost = '';
 export default {
   init(global) {
     env = global.ENV || 'production';
-    apiHost = global.API_HOST || 'https://localhost:5000';
-    appHost = global.APP_HOST || 'https://';
+    apiHost = global.API_HOST || 'https://drqmuller-api.herokuapp.com/docs';
+    appHost = global.APP_HOST || 'https://drqmuller.herokuapp.com/docs';
   },
 
   get apiHost() {
