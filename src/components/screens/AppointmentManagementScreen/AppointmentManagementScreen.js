@@ -4,13 +4,14 @@ import { func, object } from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Row, Col, Table } from 'react-bootstrap';
+import SocketIOClient from 'socket.io-client';
 
 import './style.css';
 import ManagementActions from '../../../actions/ManagementActions';
 import Locale from './Locale';
 import AppointmentItem from './AppointmentItem';
-import socketIO from '../../../socketIO';
 import { refreshAppointments } from '../../../constants/SocketIOListenerConstants';
+import config from '../../../config';
 
 class AppointmentManagementScreen extends Component {
   constructor(props) {
@@ -20,7 +21,7 @@ class AppointmentManagementScreen extends Component {
       locale: Locale[props.Localization.locale]
     };
 
-    this.socket = socketIO.socket;
+    this.socket = SocketIOClient(config.apiHost);
   }
 
   componentWillMount() {

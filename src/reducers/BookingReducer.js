@@ -19,8 +19,8 @@ export const getInitialState = () => ({
 });
 
 export default createReducer(getInitialState, {
-  [`${GET_APPOINTMENTS}_REQUEST`]: () => ({
-    loading: true,
+  [`${GET_APPOINTMENTS}_REQUEST`]: (state, { payload: { shouldReload } }) => ({
+    loading: shouldReload,
     errors: {}
   }),
   [`${GET_APPOINTMENTS}_SUCCESS`]: (state, { payload: { appointments } }) => ({

@@ -1,9 +1,12 @@
 import { takeEvery, call, put, select } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
+import SocketIOClient from 'socket.io-client';
 
 import ManagementRepository from '../repositories/ManagementRepository';
 import Alert from '../lib/Alert';
 import ManagementConstants from '../constants/ManagementConstants';
+import { appointmentConfirmed } from '../constants/SocketIOListenerConstants';
+import config from '../config';
 
 const {
   GET_MANAGEMENT_APPOINTMENTS,
@@ -29,6 +32,7 @@ export function* watchConfirmAppointment() {
       yield call(getManagementAppointments);
       yield delay(1000);
       Alert.success(locale, 'appointment_confirmed');
+      SocketIOClient(config.apiHost).emit(appointmentConfirmed, appointmentId);
     } catch (errors) {
       yield put({
         type: `${CONFIRM_APPOINTMENT}_FAILURE`,

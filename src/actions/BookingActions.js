@@ -8,8 +8,9 @@ const {
   CANCEL_APPOINTMENT
 } = BookingConstants;
 
-export const getAppointments = () => ({
-  type: `${GET_APPOINTMENTS}_REQUEST`
+export const getAppointments = (shouldReload = true) => ({
+  type: `${GET_APPOINTMENTS}_REQUEST`,
+  payload: { shouldReload }
 });
 
 export const getAllMachines = () => ({

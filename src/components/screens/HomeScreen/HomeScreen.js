@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { func, array } from 'prop-types';
+import SocketIOClient from 'socket.io-client';
 
 import './style.css';
 import BookingActions from '../../../actions/BookingActions';
@@ -13,10 +14,31 @@ import {
   authed,
   createAppointment
 } from '../../../constants/RoutePathConstants';
+import { refreshUserAppointments } from '../../../constants/SocketIOListenerConstants';
+import config from '../../../config';
 
 class HomeScreen extends Component {
+  constructor(props) {
+    super(props);
+
+    this.socket = SocketIOClient(config.apiHost);
+  }
+
   componentWillMount() {
-    this.props.getAppointments();
+    const { getAppointments, appointments } = this.props;
+    getAppointments();
+    this.socket.on(refreshUserAppointments, appointmentId => {
+      const appointment = appointments.find(
+        appointment => appointment.id === appointmentId
+      );
+      if (!appointment) return;
+
+      getAppointments(false);
+    });
+  }
+
+  componentWillUnmount() {
+    this.socket.disconnect();
   }
 
   handleCreateAppointmentClick = () => {
